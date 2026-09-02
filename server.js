@@ -1,5 +1,5 @@
 import express from 'express';
-
+//https://cse340-icrr.onrender.com
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 
@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello from Express Wellcome we are open! and our code is now running');
+  res.send('Hello from Express Wellcome we are open! and our');
 });
 
 app.listen(PORT, () => {
