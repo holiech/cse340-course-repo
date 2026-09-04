@@ -17,33 +17,33 @@ const app = express();
 app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
-app.set('views', path.join(__dirname, 'src/views'));
+app.set('views', path.join(__dirname, 'src/views'))
 
 
 // Serve static files from public
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) =>{
-  const title = 'Home';
+  const title = 'home';
   res.render('home', {title});
 });
 
 app.get('/organizations', async (req, res) =>{
-  const title = 'Organizations';
+  const title = 'organizations';
   res.render('organizations', {title});
 });
 
 app.get('/projects', async (req, res) =>{
-  const title = 'Service Projects';
+  const title = 'service projects';
   res.render('projects', { title });
 });
 
 
 
 app.get('/categories', async (req, res) =>{
-  const title = 'Categories';
-  res.render('categories', { title });
-});
+  const title = 'categories';
+  res.render('categories',{ title});
+})
 
 
 app.listen(PORT, () => {
