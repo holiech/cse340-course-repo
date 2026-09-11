@@ -1,9 +1,49 @@
 
-
-
-
-
 <%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    <h2>Explore Service Opportunities by Category and find great opportunities to make a difference.</h2>
+    <section class="category">
+    
+        <ul>
+            <%categories.forEach(category =>{%>
+                <li><%= category.name %></li>
+            
+            <% }) %>
+        </ul>
+    </section> 
+
+</main>
+
+<%- include('partials/footer') %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
     <h2>Explore Service Opportunities by Category and find great opportunities to make a difference.</h2>
@@ -57,3 +97,4 @@
 </main>
 
 <%- include('partials/footer') %>
+-->
