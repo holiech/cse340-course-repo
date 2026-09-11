@@ -4,10 +4,9 @@ import path from 'path';
 
 import { testConnection } from './src/models/db.js';
 
-import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllOrganizations } from "./src/models/organizations.js";
 import { getAllProjects } from "./src/models/projects.js";
-import { getAllCategories } from './src/models/categories.js';
-
+import { getAllCategories } from "./src/models/categories.js";
 
 
 
