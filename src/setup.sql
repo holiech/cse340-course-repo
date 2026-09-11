@@ -11,6 +11,32 @@ logo_filename VARCHAR (255) NOT NULL
 
 
 
+
+INSERT INTO Organization (organization_id, name, Description, Contact_email, logo_filename)
+VALUES
+(   22,
+    'BrightFuture Builders',
+    'A nonprofit focused on improving community infrastructure through sustainable construction projects.',
+    'info@brightfuturebuilders.org',
+    'brightfuture-logo.png'
+),
+(   23,
+    'GreenHarvest Growers',
+    'An urban farming collective promoting food sustainability and education in local neighborhoods.',
+    'contact@greenharvest.org',
+    'greenharvest-logo.png'
+),
+(   24,
+    'UnityServe Volunteers',
+    'A volunteer coordination group supporting local charities and service initiatives.',
+    'hello@unityserve.org',
+    'unityserve-logo.png'
+);
+
+
+
+
+
 CREATE TABLE project (
     project_id SERIAL PRIMARY KEY,
     organization_id INT NOT NULL,
@@ -25,7 +51,7 @@ CREATE TABLE project (
 
 --POROJECT 9/11 fri work
 
-IINSERT INTO project
+INSERT INTO project
     (organization_id, title, description, location, project_date)
 VALUES
 (22, 'Community Hall Renovation',
@@ -87,3 +113,57 @@ VALUES
 (24, 'Youth Community Service',
  'Organize young volunteers to participate in community service.',
  'Machakos', '2026-10-20');
+
+
+
+--new table for categories 
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+	);
+	
+ CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+
+	PRIMARY KEY (project_id, category_id),
+	
+	CONSTRAINT project_category_project_fk
+        FOREIGN KEY (project_id)
+        REFERENCES project (project_id),
+
+    CONSTRAINT project_category_category_fk
+        FOREIGN KEY (category_id)
+        REFERENCES category (category_id)
+	
+	);
+
+	
+    
+INSERT INTO category(name)
+VALUES
+('Environment'),
+('Education'),
+('Community Support');
+
+
+
+INSERT INTO project_category (project_id, category_id)
+VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 3),
+(5, 3),
+(6, 1),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 1),
+(11, 3),
+(12, 3),
+(13, 2),
+(14, 3),
+(15, 3);
+
