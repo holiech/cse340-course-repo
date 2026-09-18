@@ -5,9 +5,17 @@
     <h2>Explore Service Opportunities by Category and find great opportunities to make a difference.</h2>
     <section class="category">
     
-        <ul>
+        <ul> 
+            
             <%categories.forEach(category =>{%>
-                <li><%= category.name %></li>
+                <li>
+                    
+                    <a href="/category/<%= category.category_id %>">
+                        <%= category.name %>
+                </a>
+                </li>
+
+                
             
             <% }) %>
         </ul>

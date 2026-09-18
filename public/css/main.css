@@ -10,7 +10,9 @@ body {
         ul {
             list-style-type: none;
             padding: 0;
+            text-align: center;
         }
+
 
         li {
             display: inline;
@@ -29,6 +31,64 @@ body {
         }
     }
 }    
+main p {
+    text-align: center;
+}
+.category {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+}
+
+.category ul {
+    list-style: none;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+}
+
+.category li{
+    background-color: white;
+    padding: 25px;
+    border: 1px solid #ddd;
+     text-align: center;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+.category li:hover {
+   color: #1976a8;
+   text-decoration: underline;
+
+}
+@media (max-width: 700px) {
+
+    .category ul {
+        grid-template-columns: 1fr;
+    }
+
+    .category {
+        margin: 25px auto;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -56,8 +116,108 @@ main h1 {
 
     }
 
+.project-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 25px 70px;
+}
 
-.category {
+
+.project-list a{
+    color: #238447;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.project-page h1 {
+    text-align: center;
+    color: #173b57;
+    margin-bottom: 10px;
+}
+
+.project-page h2 {
+    text-align: center;
+    color: #555;
+    font-weight: normal;
+    margin-top: 30px;
+}
+
+
+.project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+
+.project-card {
+    background: #ffffff;
+    border-radius: 14px;
+    margin-bottom: 15px;
+    padding: 24px;
+    display: flex;
+    text-align: center;
+    gap: 25px;
+    border: 1px solid #e3eaf0;
+
+    box-shadow: 0 5px 18px rgba(25, 55, 75, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.project-card:hover a {
+    text-decoration: underline;
+}.project-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(25, 55, 75, 0.14);
+
+    border-color: #8abbd5;
+}
+
+
+.project-date {
+    min-width: 125px;
+
+    color: #1976a8;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+
+
+
+.project-info a:hover{ 
+    text-decoration: underline;
+;
+}
+
+
+@media (max-width: 600px) {
+
+    .project-card {
+        display: block;
+    }
+
+    .project-date {
+        margin-bottom: 10px;
+    }
+
+}
+
+
+
+
+/* .category {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
@@ -159,4 +319,4 @@ main h1 {
 
 
 }
-    
+     */
