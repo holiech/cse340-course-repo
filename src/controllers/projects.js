@@ -1,5 +1,4 @@
-import db from '../models/db.js';
-import { getAllProjects } from '../models/projects.js';
+
 import { getUpcomingProjects, getProjectDetails } from '../models/projects.js';
 import {getCategoriesByProjectId} from '../models/categories.js';
 
@@ -35,7 +34,7 @@ const showProjectDetailsPage =  async (req, res) => {
     const categories = await getCategoriesByProjectId(projectId);
     const title = 'Service Project Details';
      res.render('project', { title, project, categories });
-}
+};
 
 // Export any controller functions
 export { showProjectsPage, showProjectDetailsPage };
