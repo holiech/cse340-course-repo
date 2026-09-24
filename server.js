@@ -1,16 +1,22 @@
 import express from 'express';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
 
+//taskkill /F /IM node.exe
 
 
 
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 
-// environment
+
+// Use flash message middleware
+
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 //port to listen
 const PORT = process.env.PORT || 3000;
@@ -19,6 +25,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+console.log('*** THIS SERVER.JS FILE IS RUNNING ***');
+router.get('/test-route', (req, res) => {
+  res.send('TEST ROUTE WORKS');
+});
+
+app.use(express.urlencoded({ extended: true }));
+// Parse JSON data
+app.use(express.json());
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
@@ -30,8 +44,17 @@ app.set('views', path.join(__dirname, 'src/views'));
 // Serve static files from public
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 }
+}));
 
+// Use flash message middleware
+app.use(flash);
 //today 9/14/2026
+
 // Middleware to log incoming requests
 app.use((req, res, next) => {
   if (NODE_ENV=== 'development') {
