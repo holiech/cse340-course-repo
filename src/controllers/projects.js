@@ -74,6 +74,12 @@ const showNewProjectForm = async (req, res) => {
 
 const processNewProjectForm = async (req, res) => {
     // Extract form data from req.body
+     if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect('/new-project');
+    }
     const { title, description, location, date, organizationId } = req.body;
 
     try {

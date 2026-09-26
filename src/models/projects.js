@@ -97,7 +97,7 @@ const getProjectDetails = async (id) => {
 
 const createProject = async (title, description, location, date, organizationId) => {
     const query = `
-      INSERT INTO project (title, description, location, date, organization_id)
+      INSERT INTO project (title, description, location, project_date, organization_id)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING project_id;
     `;
@@ -114,8 +114,8 @@ const createProject = async (title, description, location, date, organizationId)
     }
 
     return result.rows[0].project_id;
+    
 }
-
 ///now
 const updateProject  =  async ( projectId, title, description, date, location, organizationId) => {
   const query = `
