@@ -6,13 +6,15 @@
     <ul>
         <%  projects.forEach(project => { %>
             <li>
-                 <a href="/project/<%= project.project_id %>">
+                 <a href="/project/<%= project.project_id %>"/>
                     <%= project.title %>
             </li>
             
 
         <% }); %>
     </ul>
+
+    <p><a href="/edit-category/<%= category.category_id %>">Edit Category</a></p>
 
 
 </main>

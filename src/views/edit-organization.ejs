@@ -2,12 +2,11 @@
 <main>
     <h1><%= title %></h1>
 
-  <!-- 1. Changed action to /edit-organization/ with the specific ID -->
   <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
     
     <div class="form-group">
       <label for="name">Organization Name</label>
-      <!-- 2. Pre-populated value attribute -->
+     
       <input
         type="text"
         id="name"
@@ -20,7 +19,7 @@
 
     <div class="form-group">
       <label for="description">Description</label>
-      <!-- 3. Placed existing data between opening and closing textarea tags -->
+     
       <textarea
         id="description"
         name="description" 
@@ -31,7 +30,7 @@
 
     <div class="form-group">
       <label for="contactEmail">Contact Email</label>
-      <!-- 4. Pre-populated value attribute -->
+    
       <input
         type="email"
         id="contactEmail"
@@ -42,7 +41,7 @@
       />
     </div>
 
-    <!-- 5. Added the new input field for the logo filename -->
+   
     <div class="form-group">
       <label for="logoFilename">Logo Filename</label>
       <input
@@ -54,7 +53,6 @@
       />
     </div>
 
-    <!-- 6. Changed the button text to Update -->
     <button type="submit">Update Organization</button>
   </form>
 

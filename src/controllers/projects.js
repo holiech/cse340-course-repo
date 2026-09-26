@@ -1,5 +1,5 @@
 
-import { getUpcomingProjects, getProjectDetails, createProject } from '../models/projects.js';
+import { getUpcomingProjects, getProjectDetails, createProject, updateProject } from '../models/projects.js';
 import {getCategoriesByProjectId} from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -76,17 +76,6 @@ const processNewProjectForm = async (req, res) => {
     // Extract form data from req.body
     const { title, description, location, date, organizationId } = req.body;
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        // Loop through validation errors and flash them
-        errors.array().forEach((error) => {
-            req.flash('error', error.msg);
-        });
-
-        // Redirect back to the new project form
-        return res.redirect('/new-project');
-    }
-
     try {
         // Create the new project in the database
         const newProjectId = await createProject(title, description, location, date, organizationId);
@@ -100,9 +89,53 @@ const processNewProjectForm = async (req, res) => {
     }
 }
 
+//now 9/25
+
+const  showEditProjectForm  = async (req, res) => {
+    const projectId = req.params.id;
+    const project = await  getProjectDetails(projectId);
+
+    if (!project) {
+            req.flash('error', 'Category not found');
+            return res.redirect('/projects');
+        }
+
+
+
+    const organizations = await getAllOrganizations();
+
+    const title = 'Edit Service Project';
+
+    res.render('edit-project', {
+        title,
+        project,
+        organizations
+    });
+};
 
 
 
 
+const processEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+    const results = validationResult(req);
+
+    if (!results.isEmpty()) {
+        results.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        // Redirect back to the edit form
+        return res.redirect(`/edit-project/${projectId}`);
+    }
+    const { title, description, location, date, organizationId} = req.body;
+    await updateProject(projectId, title, description, date , location, organizationId);
+
+    req.flash('success', 'Project updated successfully!');
+    res.redirect(`/project/${projectId}`);
+};
+
+
+export { showEditProjectForm, processEditProjectForm };
 // Export any controller functions
 export { showProjectsPage, showProjectDetailsPage, processNewProjectForm, showNewProjectForm, projectValidation };

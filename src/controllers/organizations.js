@@ -48,6 +48,10 @@ const showOrganizationsPage = async (req, res) => {
 const showOrganizationDetailsPage = async (req, res) => {
     const organizationId = req.params.id;
     const organizationDetails = await getOrganizationDetails(organizationId);
+    if (!organizationDetails) {
+            req.flash('error', 'Organization not found');
+            return res.redirect('/organizations');
+        }
     const projects = await getProjectsByOrganizationId(organizationId);
     const title = 'Organization Details';
 
@@ -58,14 +62,13 @@ const showOrganizationDetailsPage = async (req, res) => {
 
 const showNewOrganizationForm = async (req, res) => {
     const title = 'Add New Organization';
-
     res.render('new-organization', { title });
 };
 
 //processNewOrganizationForm
 const processNewOrganizationForm = async (req, res) => {
     const results = validationResult(req)
-    if (! results.isEmpty()) {
+    if (!results.isEmpty()) {
 
         results.array().forEach((error) => {
             req.flash('error', error.msg );
@@ -86,8 +89,12 @@ const processNewOrganizationForm = async (req, res) => {
 
 //showEditOrganizationForm
 const showEditOrganizationForm = async (req, res) => {
-    const  organizationId  = req.params.id;
+    const organizationId  = req.params.id;
     const organizationDetails = await getOrganizationDetails(organizationId);
+    if (!organizationDetails) {
+            req.flash('error', 'Organization not found');
+            return res.redirect('/organizations');
+        }
     const title = 'Edit Organization';
     res.render('edit-organization',{
         title,
@@ -110,10 +117,18 @@ const processEditOrganizationForm = async (req, res) => {
     }
     
     const { name, description, contactEmail, logoFilename } = req.body;
-    await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
+    try {
+        await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
 
-    req.flash('success', 'Organization updated successfully!');
-    res.redirect(`/organization/${organizationId}`);
+        req.flash('success', 'Organization updated successfully!');
+        res.redirect(`/organization/${organizationId}`);
+    }
+
+    catch (error) {
+        console.error('Error Updating Organization', error);
+        req.flash('error', 'There was an Error Udating The Organization');
+        res.redirect(`/edit-organization/${organizationId}`);
+    }
 };
 
 
