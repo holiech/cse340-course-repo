@@ -12,6 +12,7 @@ import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage, showNewOrganizationForm, showOrganizationsPage, processNewOrganizationForm,
     organizationValidation, showEditOrganizationForm, processEditOrganizationForm
  } from './controllers/organizations.js';
+import { validationResult } from 'express-validator';
 
 // today update 08/21/26
 const router = express.Router();
@@ -61,7 +62,7 @@ router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 //router.get('/organization/:id', showOrganizationDetailsPage);
 
 router.get('/edit-project/:id', showEditProjectForm);
-router.post('/edit-project/:id', processEditProjectForm);
+router.post('/edit-project/:id',projectValidation, processEditProjectForm);
 
 
 

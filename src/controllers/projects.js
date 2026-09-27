@@ -116,8 +116,6 @@ const  showEditProjectForm  = async (req, res) => {
             return res.redirect('/projects');
         }
 
-
-
     const organizations = await getAllOrganizations();
 
     const title = 'Edit Service Project';
@@ -140,15 +138,25 @@ const processEditProjectForm = async (req, res) => {
         results.array().forEach((error) => {
             req.flash('error', error.msg);
         });
-
-        // Redirect back to the edit form
+        // Redirect back to the edit for
         return res.redirect(`/edit-project/${projectId}`);
     }
-    const { title, description, location, date, organizationId} = req.body;
-    await updateProject(projectId, title, description, date , location, organizationId);
 
-    req.flash('success', 'Project updated successfully!');
-    res.redirect(`/project/${projectId}`);
+    const { title, description, location, date, organizationId} = req.body;
+    try {
+
+        await updateProject(projectId, title, description, date , location, organizationId);
+        req.flash('success', 'Project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+
+    }
+    catch (error) {
+        console.error('Error creating new project:', error);
+        req.flash('error', 'There was an error updating the service project.');
+        res.redirect(`/project/${projectId}`);
+
+    }
+    
 };
 
 
