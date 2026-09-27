@@ -74,27 +74,14 @@ const showNewProjectForm = async (req, res) => {
 
 const processNewProjectForm = async (req, res) => {
     // Extract form data from req.body
-     if (!errors.isEmpty()) {
-        errors.array().forEach((error) => {
-            req.flash('error', error.msg);
-        });
-        return res.redirect('/new-project');
-    }
     const { title, description, location, date, organizationId } = req.body;
 
-    try {
-        // Create the new project in the database
-        const newProjectId = await createProject(title, description, location, date, organizationId);
+    // Create the new project in the database
+    const newProjectId = await createProject(title, description, location, date, organizationId);
 
-        req.flash('success', 'New service project created successfully!');
-        res.redirect(`/project/${newProjectId}`);
-    } catch (error) {
-        console.error('Error creating new project:', error);
-        req.flash('error', 'There was an error creating the service project.');
-        res.redirect('/new-project');
-    }
+    req.flash('success', 'New service project created successfully!');
+    res.redirect(`/project/${newProjectId}`);
 }
-
 //now 9/25
 
 const  showEditProjectForm  = async (req, res) => {
