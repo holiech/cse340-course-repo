@@ -367,6 +367,15 @@ form label {
   font-weight: bold;
 }
 
+
+
+.category-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
 form input[type="text"],
 form input[type="email"],
 form input[type="date"],

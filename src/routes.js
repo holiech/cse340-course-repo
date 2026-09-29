@@ -14,6 +14,8 @@ import { showOrganizationDetailsPage, showNewOrganizationForm, showOrganizations
  } from './controllers/organizations.js';
 import { validationResult } from 'express-validator';
 
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm,processLogout, requireLogin, showDashboard} from './controllers/users.js';
+
 // today update 08/21/26
 const router = express.Router();
 
@@ -72,6 +74,22 @@ router.post('/new-category', categoryValidation, processNewCategoryForm);
 router.get('/edit-category/:id', showEditCategoriesForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 // error-handling routes
+
+
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+
+
+
+// User login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
+
+
+router.get('/dashboard', requireLogin, showDashboard)
+
+
 router.get('/test-error', testErrorPage);
 
 export default router;
