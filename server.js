@@ -26,9 +26,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 console.log('*** THIS SERVER.JS FILE IS RUNNING ***');
-router.get('/test-route', (req, res) => {
-  res.send('TEST ROUTE WORKS');
-});
+
 
 app.use(express.urlencoded({ extended: true }));
 // Parse JSON data
@@ -76,9 +74,12 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     res.locals.isLoggedIn = false;
+
     if (req.session && req.session.user) {
         res.locals.isLoggedIn = true;
     }
+
+    res.locals.user = req.session.user || null;
 
     res.locals.NODE_ENV = NODE_ENV;
     next();
