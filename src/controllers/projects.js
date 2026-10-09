@@ -3,7 +3,7 @@ import { getUpcomingProjects, getProjectDetails, createProject, updateProject } 
 import {getCategoriesByProjectId} from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
-
+import { isVolunteering } from '../models/volunteers.js';
 
 
 
@@ -34,9 +34,24 @@ const showProjectsPage  = async (req, res) =>{
 const showProjectDetailsPage =  async (req, res) => {
     const projectId = req.params.id;
     const project = await getProjectDetails(projectId);
+
+    if (!project) {
+        req.flash('error', 'Project not found');
+        return res.redirect('/projects');
+    }
+
     const categories = await getCategoriesByProjectId(projectId);
+    let volunteering= false;
+    if (req.session.user) {
+        volunteering = await isVolunteering(req.session.user.user_id, projectId);
+    }
+
     const title = 'Service Project Details';
-     res.render('project', { title, project, categories });
+    res.render('project', { title, project, categories, isVolunteering: volunteering });
+
+    
+    // const title = 'Service Project Details';
+    //  res.render('project', { title, project, categories });
 };
 
 ///now
@@ -158,6 +173,8 @@ const processEditProjectForm = async (req, res) => {
     }
     
 };
+
+
 
 
 export { showEditProjectForm, processEditProjectForm };

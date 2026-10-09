@@ -16,6 +16,8 @@ import { validationResult } from 'express-validator';
 
 import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm,processLogout, requireLogin, showDashboard, requireRole, showUserPage} from './controllers/users.js';
 
+import { processVolunteerRequest, processVolunteerRemoval } from './controllers/volunteers.js';
+
 // today update 08/21/26
 const router = express.Router();
 
@@ -92,6 +94,9 @@ router.get('/logout', processLogout);
 
 router.get('/dashboard', requireLogin, showDashboard)
 router.get('/users', requireLogin, requireRole('admin'), showUserPage)
+
+router.post('/volunteer/:projectId', requireLogin, processVolunteerRequest);
+router.post('/unvolunteer/:projectId', requireLogin, processVolunteerRemoval);
 
 router.get('/test-error', testErrorPage);
 
